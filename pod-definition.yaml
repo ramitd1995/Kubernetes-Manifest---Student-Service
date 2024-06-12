@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: nginx-pod
+  namespace: default
+  labels:
+    env: stag
+    service: unified-cart
+spec:
+  containers:
+    - name: nginx-container
+      image: nginx
+      envFrom:
+        - secretRef:
+            name: dotfile-secret
+

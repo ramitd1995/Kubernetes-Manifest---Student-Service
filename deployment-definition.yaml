@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-deployment-handson
+  labels:
+    env: staging
+spec:
+  selector:
+    matchLabels:
+      env: stag
+      service: unified-cart
+  replicas: 4
+  template: 
+    metadata:
+      name: my-pod-replicas
+      labels:
+        env: stag
+        service: unified-cart
+    spec:
+      containers:
+        - name: nginx-rep
+          image: nginx

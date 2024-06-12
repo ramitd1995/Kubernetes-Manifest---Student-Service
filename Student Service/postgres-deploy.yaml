@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-deployment
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      db: postgres
+      backend: student-service
+
+  template:
+    metadata:
+      name: postgres-pod
+      labels:
+        db: postgres
+        backend: student-service
+
+    spec:
+      volumes:
+        - name: my-postgres-volume
+          hostPath:
+            path: /pgdata
+            
+      containers:
+        - name: postgres-container
+          image: postgres:latest
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_USER
+              value: postgres
+            - name: POSTGRES_PASSWORD
+              value: zxcv
+            - name: POSTGRES_DB
+              value: student_service_db
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: my-postgres-volume

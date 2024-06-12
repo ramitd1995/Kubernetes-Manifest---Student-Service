@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata: 
+  name: my-service
+spec:
+  selector: 
+    env: stag
+    service: unified-cart
+  type: NodePort
+  ports:
+    - name: nginx-port
+      port: 8089
+      targetPort: 80
+      nodePort: 32001
+    - name: json-server-port
+      port: 8090
+      targetPort: 3000
+      nodePort: 32002

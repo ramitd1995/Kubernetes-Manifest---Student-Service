@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-student-service
+  labels:
+    backend: springboot-student-service
+spec:
+  selector:
+    backend: student-service
+  ports:
+    - port: 8090
+      targetPort: 8090

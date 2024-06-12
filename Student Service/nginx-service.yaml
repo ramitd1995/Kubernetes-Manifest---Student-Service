@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: api-gateway
+  labels:
+    api-gateway-service: nginx-service
+spec:
+  selector:
+    api-gateway: nginx
+    backend: student-service
+  type: NodePort
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 30005
+    

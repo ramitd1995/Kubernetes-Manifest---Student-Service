@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      api-gateway: nginx
+      backend: student-service
+
+  template:
+    metadata:
+      name: nginx-service-pod
+      labels:
+        api-gateway: nginx
+        backend: student-service
+    spec:
+      volumes:
+        - name: nginx-pod-volume
+          hostPath:
+            path: /Users/ramitdhamija/IdeaProjects/buildservice/src/main/resources/nginx/nginx.conf
+      
+      containers:
+        - name: nginx-container
+          image: ubuntu/nginx
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: nginx-pod-volume
+              mountPath: /etc/nginx/nginx.conf

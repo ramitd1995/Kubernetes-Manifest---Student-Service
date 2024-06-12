@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      backend: student-service
+
+  template:
+    metadata:
+      name: backendservice-pod
+      labels:
+        backend: student-service
+    spec:
+      containers:
+        - name: backendservice-container
+          image: ramit07/springboot_studentservice_multiarch
+          ports:
+            - containerPort: 8090
+          env:
+            - name: db_url
+              value: jdbc:postgresql://postgres-db:5432/student_service_db
+            - name: db_username
+              value: postgres
+            - name: db_password
+              value: zxcv
